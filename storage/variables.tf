@@ -15,7 +15,7 @@ variable "location" {
 }
 
 variable "kind" {
-  type        = string
+  type        = string 
   default     = "StorageV2"
   description = "The kind of storage account."
 }
