@@ -86,7 +86,7 @@ variable "azurerm_subnet_name" {
 # Service principal variables
 variable "sp_name" {
   description = "Service principal name"
-  default = "sp-akss"
+  default = "sp-name"
 }
 variable "end_date" {
   description = "The End Date which the Password is valid until, formatted as a RFC3339 date string (e.g. 2018-01-01T01:02:03Z)."
@@ -100,4 +100,9 @@ variable "tags" {
   description = "Tags for all the resources"
 }
 # -----------------
-
+variable "local_file" {
+  type = string
+  description = "kube_config_file"
+  default = "azurerm_kubernetes_cluster.aks.kube_config_raw"
+}
+# -----------------  

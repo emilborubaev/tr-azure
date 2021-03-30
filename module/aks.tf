@@ -13,6 +13,22 @@ resource "azurerm_resource_group" "aks" {
 }
 
 
+resource "null_resource" "create_local_kubeconfig" {
+  provisioner "local-exec" {
+   command = "rm -rf generated"
+  }
+  provisioner "local-exec" {
+   command = "mkdir generated"
+  }
+  provisioner "local-exec" {
+   command = "touch generated/kubeconfig"
+  }
+ }
+
+
+
+
+
 # Create Azure Kubernetes Cluster
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.cluster_name
@@ -20,6 +36,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   # Specifies the Resource Group where the Managed Kubernetes Cluster should exist
   resource_group_name = azurerm_resource_group.aks.name
+
+
  
   # DNS prefix specified when creating the managed cluster
   dns_prefix          = var.dns_prefix
@@ -59,7 +77,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
   node_resource_group = var.node_resource_group_name
   
-  kubernetes_version = "1.17.13"
+  kubernetes_version = "1.18.10"
   
   # Addon profile is used for monitoring 
   addon_profile {
@@ -99,5 +117,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_policy     = var.network_policy
   }
       tags = var.tags
-}
 
+}
+resource "local_file" "kube_config_file" {
+ content  = var.local_file
+ filename  = "/Users/emilborubaev/Downloads/azure-kubernetes/tr-azure/generated/kubeconfig"
+}
