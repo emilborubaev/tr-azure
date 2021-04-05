@@ -24,9 +24,9 @@ go to resource group in aks
  - network_policy -- Use Calico network policy(an open-source network and network security solution) 
  - agent_count -- The Microsoft Azure Virtual Machine Agent
  - admin_username -- Azure user
- - cluster_name 
+ - cluster_name   -- Cluster name to create
  - load_balancer_sku -- example: "Basic"
- - service_cidr
+ - service_cidr    -- given cider block if requested
  - dns_service_ip
  - dns_prefix
  - location -- Azure cloud clusters location
@@ -44,7 +44,10 @@ run : terraform plan --auto-approve -var-file azure.tfvars
 
 run : terrafor apply --auto-approve -var-file azure.tfvars
 
-# To connect to kubernetes cluster run below commands
+# Connecttion instruction to Azure kubernetes cluster 
+in the Azure portal where created cluster 
+- run "az aks get-credentials --resource-group (your resource group name) --name (cluster name)"
+it might ask to overwright kubeconfig file >>> press "Y"
 
 
 
